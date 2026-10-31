@@ -3,10 +3,9 @@ package org.para.plugin;
 import com.intellij.codeInsight.CodeInsightBundle;
 import com.intellij.codeInsight.TargetElementUtil;
 import com.intellij.codeInsight.hint.HintManager;
-import com.intellij.codeInsight.navigation.NavigationUtil;
+import com.intellij.codeInsight.navigation.PsiTargetNavigator;
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationAction;
 import com.intellij.find.actions.ShowUsagesAction;
-import com.intellij.ide.util.DefaultPsiElementCellRenderer;
 import com.intellij.lang.LanguageNamesValidation;
 import com.intellij.lang.refactoring.NamesValidator;
 import com.intellij.openapi.actionSystem.*;
@@ -183,7 +182,7 @@ public class OpenInSplittedTabBaseAction extends AnAction {
                 title = MessageFormat.format(titlePattern, refText);
             }
 
-            NavigationUtil.getPsiElementPopup(elements, new DefaultPsiElementCellRenderer(), title, processor).showInBestPositionFor(editor);
+            new PsiTargetNavigator<>(elements).navigate(editor, title, processor);
             return true;
         }
         return false;
